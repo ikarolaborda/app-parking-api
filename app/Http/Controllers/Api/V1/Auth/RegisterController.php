@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRegisterRequest;
 use App\Services\UserRegisterService;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,7 +16,7 @@ class RegisterController extends Controller
     {
     }
 
-    public function __invoke(UserRegisterRequest $request)
+    public function __invoke(UserRegisterRequest $request): JsonResponse
     {
         $user = $this->userRegisterService->register($request->validated());
         event(new Registered($user));
