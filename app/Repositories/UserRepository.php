@@ -29,6 +29,22 @@ class UserRepository implements UserRepositoryInterface
         return $this->model->find($id);
     }
 
+    public function findByParam(mixed $param , mixed $search): User|null
+    {
+            return $this->model
+                ->query()
+                ->when($param == 'email', function ($query) use ($search) {
+                    $query->where('email', $search);
+                })
+                ->when($param == 'username', function ($query) use ($search) {
+                    $query->where('username', $search);
+                })
+                ->when($param == 'id', function ($query) use ($search) {
+                    $query->where('id', $search);
+                })
+                ->first();
+    }
+
     /**
      * @throws \Exception
      */
