@@ -14,7 +14,7 @@ interface UserRepositoryInterface
 
     public function find(int $id): User|null;
 
-    public function update(int $id, array $attributes): User;
+    public function update(int $id, array $attributes): User | string;
 
     public function delete(int $id): bool;
 

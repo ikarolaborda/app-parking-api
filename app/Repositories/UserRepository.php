@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Contracts\UserRepositoryInterface;
+use App\Exceptions\UserNotFoundException;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -46,32 +47,29 @@ class UserRepository implements UserRepositoryInterface
     }
 
     /**
-     * @throws \Exception
+     * @throws UserNotFoundException
      */
-    public function update(int $id, array $attributes): User
+    public function update(int $id, array $attributes): User | string
     {
-        $user = $this->find($id);
-
-        if ($user === null) {
-            throw new \Exception("User not found.");
+        try {
+            $user = $this->find($id);
+            $user->update($attributes);
+            return $user;
+        }catch (UserNotFoundException $e) {
+            throw new UserNotFoundException($e->getMessage());
         }
-
-        $user->update($attributes);
-
-        return $user;
     }
 
     /**
-     * @throws \Exception
+     * @throws UserNotFoundException
      */
     public function delete(int $id): bool
     {
-        $user = $this->find($id);
-
-        if ($user === null) {
-            throw new \Exception("User not found.");
+        try {
+            $user = $this->find($id);
+            return $user->delete();
+        }catch (UserNotFoundException $e) {
+            throw new UserNotFoundException($e->getMessage());
         }
-
-        return $user->delete();
     }
 }
