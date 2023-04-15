@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Contracts\UserRepositoryInterface;
 use App\Exceptions\InvalidCredentialsException;
 use App\Models\User;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 
 class UserService
@@ -29,5 +31,15 @@ class UserService
             throw new InvalidCredentialsException('Invalid credentials');
         }
         return $user;
+    }
+
+    public function getAllUsers(): Collection | LengthAwarePaginator
+    {
+        return $this->userRepository->all();
+    }
+
+    public function updateUser(int $id, array $data): User | null
+    {
+        return $this->userRepository->update($id, $data);
     }
 }
