@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
+use App\Contracts\VehicleRepositoryInterface;
 use App\Http\Resources\VehicleResource;
-use App\Repositories\VehicleRepository;
 
 class VehicleService
 {
-    public function __construct(private readonly VehicleRepository $repository)
+    public function __construct(private readonly VehicleRepositoryInterface $repository)
     {
     }
 

@@ -3,7 +3,13 @@
 namespace App\Providers;
 
 use App\Contracts\UserRepositoryInterface;
+use App\Contracts\VehicleRepositoryInterface;
+use App\Contracts\ZoneRepositoryInterface;
+use App\Models\Vehicle;
+use App\Observers\VehicleObserver;
 use App\Repositories\UserRepository;
+use App\Repositories\VehicleRepository;
+use App\Repositories\ZoneRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,6 +20,8 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(VehicleRepositoryInterface::class, VehicleRepository::class);
+        $this->app->bind(ZoneRepositoryInterface::class, ZoneRepository::class);
     }
 
     /**
@@ -21,6 +29,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
+        Vehicle::observe(VehicleObserver::class);
     }
 }
