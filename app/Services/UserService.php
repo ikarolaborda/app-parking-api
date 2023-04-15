@@ -40,6 +40,9 @@ class UserService
 
     public function updateUser(int $id, array $data): User | null
     {
+        if(array_key_exists('password', $data)) {
+            $data['password'] = Hash::make($data['password']);
+        }
         return $this->userRepository->update($id, $data);
     }
 }
