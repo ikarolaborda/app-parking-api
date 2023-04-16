@@ -10,4 +10,8 @@ class Zone extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'price_per_hour'];
+
+    protected $casts = [
+        'price_per_hour' => 'float'
+    ];
 }
