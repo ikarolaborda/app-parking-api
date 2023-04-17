@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\V1\Auth;
 */
 Route::post('auth/register', Auth\RegisterController::class)->name('register');
 Route::post('auth/login', Auth\LoginController::class)->name('login');
+Route::get('zones', [ZoneController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('profile', [Auth\ProfileController::class, 'show']);
@@ -26,8 +27,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('password', Auth\PasswordUpdateController::class);
 
     Route::apiResource('vehicles', VehicleController::class);
-
-    Route::get('zones', [ZoneController::class, 'index']);
 
     Route::post('parkings/start', [ParkingController::class, 'start']);
     Route::get('parkings/{parking}', [ParkingController::class, 'show']);

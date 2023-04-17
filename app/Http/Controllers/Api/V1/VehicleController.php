@@ -7,6 +7,7 @@ use App\Http\Requests\VehicleStoreRequest;
 use App\Http\Resources\VehicleResource;
 use App\Models\Vehicle;
 use App\Services\VehicleService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -36,8 +37,8 @@ class VehicleController extends Controller
         return new VehicleResource($this->service->update($vehicle->id, $request->validated()));
     }
 
-    public function destroy(Vehicle $vehicle): bool
+    public function destroy(Vehicle $vehicle): JsonResponse
     {
-        return $this->service->delete($vehicle->id);
+        return response()->json(['message' => $this->service->delete($vehicle->id) ? 'Vehicle deleted successfully' : 'Vehicle not found'],204);
     }
 }
