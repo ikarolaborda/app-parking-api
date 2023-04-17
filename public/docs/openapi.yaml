@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
-  title: Laravel
-  description: ''
+  title: Car Parking App API
+  description: 'API for public car parking zones management.'
   version: 1.0.0
 servers:
   -
